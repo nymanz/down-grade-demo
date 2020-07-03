@@ -6,5 +6,5 @@ package com.sinbad.sentinel;
 @FunctionalInterface
 public interface ExecutorApi<T> {
 
-	T execute() throws Throwable;
+	T execute() throws Exception;
 }
