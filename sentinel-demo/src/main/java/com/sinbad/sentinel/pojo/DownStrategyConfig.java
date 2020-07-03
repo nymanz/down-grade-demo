@@ -24,10 +24,11 @@ public class DownStrategyConfig {
 	// 资源名字
 	private String resourceName;
 	/**
-	 * 限流阈值类型， QPS（1） 或 并发线程数（0）
-	 *
+	 * #1 限流阈值类型， QPS（1） 或 并发线程数（0）
 	 * @see RuleConstant#FLOW_GRADE_QPS
 	 * @see RuleConstant#FLOW_GRADE_THREAD
+	 *
+	 *  #2 中断 Degrade strategy (0: average RT, 1: exception ratio, 2: exception count).
 	 */
 	private Integer gradeType;
 
@@ -39,6 +40,13 @@ public class DownStrategyConfig {
 
 	//流控效果
 	private Integer controlBehavior;
+
+
+	//慢恢复策略等待时间
+	private Integer warmUpPeriodSec;
+
+	// 响应时间 或异常比例 异常数
+	private Double rtOrExcRateNum;
 
 
 	@Getter

@@ -29,13 +29,11 @@ public class DownConfigLoaderUtil {
 	public static void loadDownStrategyConfig() {
 		String sentinelJsonConfig = "";
 		if (!StringUtils.isEmpty(sentinelJsonConfig)) {
-			{
-				try {
-					localConfigList = GsonUtil.fromJson(sentinelJsonConfig, new TypeToken<List<DownStrategyConfig>>() {
-					}.getType());
-				} catch (Exception e) {
-					log.error("Turn config to entry failed, sentinelJsonConfig={}", sentinelJsonConfig);
-				}
+			try {
+				localConfigList = GsonUtil.fromJson(sentinelJsonConfig, new TypeToken<List<DownStrategyConfig>>() {
+				}.getType());
+			} catch (Exception e) {
+				log.error("Turn config to entry failed, sentinelJsonConfig={}", sentinelJsonConfig);
 			}
 			if (!CollectionUtils.isEmpty(localConfigList)) {
 				initDownStrategyConfig(localConfigList);
@@ -73,28 +71,37 @@ public class DownConfigLoaderUtil {
 				//Rate limiter control behavior.
 				//0. default(reject directly), 1. warm up, 2. rate limiter, 3. warm up + rate limiter
 				flowRule.setControlBehavior(config.getControlBehavior());
+				//冷启动之类的 最大等待时间
+				//flowRule.setMaxQueueingTimeMs(config.getWindowTime());
+				//对应上面  warm up 的尝试恢复时间
+				flowRule.setWarmUpPeriodSec(config.getWarmUpPeriodSec());
 
+				//策略类型 QPS（1） 或 并发线程数（0）
+				flowRule.setGrade(config.getGradeType());
+				//限流量 ： qps 数或 线程数
 				flowRule.setCount(config.getQpsOrThreadNum());
 
-				flowRule.setGrade(config.getGradeType());
+
 				// 调用关心限流策略：直接，链路，关联 根据资源本身（直接）
 				flowRule.setStrategy(0);
-				flowRule.setWarmUpPeriodSec(1);
-
-				flowRule.setMaxQueueingTimeMs(RuleConstant.FLOW_GRADE_QPS);
 
 				FlowRuleManager.loadRules(Collections.singletonList(flowRule));
 			} else if (configType == DownStrategyConfig.ConfigTypeEnum.DegradeRule.getKey()) {
 				DegradeRule degradeRule = new DegradeRule(resourceName);
+
 				//RT threshold or exception ratio threshold count.
-				degradeRule.setCount(config.getQpsOrThreadNum());
+				degradeRule.setCount(config.getRtOrExcRateNum());
+				//中断策略 返回时长 异常比例 异常数
 				degradeRule.setGrade(config.getGradeType());
 
+				//触发电路中断的最小请求数
 				degradeRule.setMinRequestAmount(1);
 
-				degradeRule.setTimeWindow(config.getWindowTime());
-
+				//触发中断的 最小慢请求数
 				degradeRule.setRtSlowRequestAmount(1);
+
+				//恢复的时间窗口
+				degradeRule.setTimeWindow(config.getWindowTime());
 
 				if (DegradeRuleManager.isValidRule(degradeRule)) {
 					DegradeRuleManager.loadRules(Collections.singletonList(degradeRule));
