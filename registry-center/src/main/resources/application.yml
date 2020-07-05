@@ -1,0 +1,13 @@
+server:
+  port: 8000
+spring:
+  application:
+    name: center-service
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://localhost:${server.port}/eureka
+  server:
+    enable-self-preservation: false
