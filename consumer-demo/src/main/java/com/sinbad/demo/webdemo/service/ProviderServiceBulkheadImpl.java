@@ -3,6 +3,7 @@ package com.sinbad.demo.webdemo.service;
 
 import javax.annotation.Resource;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -11,6 +12,7 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.sinbad.demo.pojo.DemoPojo;
 
 @Service
+@ConditionalOnBean
 public class ProviderServiceBulkheadImpl {
 
 

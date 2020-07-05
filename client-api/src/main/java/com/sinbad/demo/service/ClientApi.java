@@ -2,10 +2,13 @@ package com.sinbad.demo.service;
 
 import javax.annotation.Resource;
 
+import org.springframework.context.annotation.Conditional;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
+@ConditionalOnBean(value = "RestTemplate")
+
 public class ClientApi {
 
 
