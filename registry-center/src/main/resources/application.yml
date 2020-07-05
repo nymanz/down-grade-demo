@@ -3,6 +3,7 @@ server:
 spring:
   application:
     name: center-service
+
 eureka:
   client:
     register-with-eureka: false
@@ -11,3 +12,5 @@ eureka:
       defaultZone: http://localhost:${server.port}/eureka
   server:
     enable-self-preservation: false
+  instance:
+    hostname: eureka-center
