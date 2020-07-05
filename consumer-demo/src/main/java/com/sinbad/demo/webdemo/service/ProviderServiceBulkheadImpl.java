@@ -12,7 +12,6 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.sinbad.demo.pojo.DemoPojo;
 
 @Service
-@ConditionalOnBean
 public class ProviderServiceBulkheadImpl {
 
 

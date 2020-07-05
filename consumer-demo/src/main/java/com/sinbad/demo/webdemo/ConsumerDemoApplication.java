@@ -17,6 +17,7 @@ import org.springframework.web.client.RestTemplate;
  * 支持 断路器
  */
 @SpringCloudApplication
+//@SpringBootApplication
 public class ConsumerDemoApplication {
 
 
