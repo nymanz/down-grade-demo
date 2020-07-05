@@ -1,0 +1,29 @@
+server:
+  port: 8200
+spring:
+  application:
+    name: consumer-demo
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8000/eureka
+management:
+  endpoint:
+    env:
+      post:
+        enabled: true
+    features:
+      enabled: true
+    hystrix:
+      stream:
+        enabled: true
+    pause:
+      enabled: true
+    resume:
+      enabled: true
+    restart:
+      enabled: true
+  metrics:
+    binders:
+      hystrix:
+        enabled: true
