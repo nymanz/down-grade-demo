@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
-@ConditionalOnBean(value = "RestTemplate")
+//@ConditionalOnBean(value = "RestTemplate")
 
 public class ClientApi {
 
