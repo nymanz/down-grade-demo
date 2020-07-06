@@ -3,6 +3,8 @@ package com.sinbad.demo.webdemo.controller;
 
 import javax.annotation.Resource;
 
+import java.util.concurrent.TimeUnit;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -23,8 +25,10 @@ public class TestController {
 
 	@GetMapping(value = "/demo/get")
 	public DemoPojo getDemo() {
+		DemoPojo demo = providerService.getDemo();
+		demo = providerService.getDemo2();
 
-		return providerService.getDemo();
+		return demo;
 	}
 
 	@GetMapping(value = "/demo/get/timeout")

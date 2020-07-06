@@ -3,6 +3,15 @@ server:
 spring:
   application:
     name: consumer-demo
+  cloud:
+    sentinel:
+      transport:
+        ##Sentinel 控制台地址
+        dashboard: 127.0.0.1:8888
+        ##客户端监控API的端口
+        port: 8721
+        ##取消Sentinel控制台懒加载
+      eager: true
 eureka:
   client:
     service-url:
@@ -42,3 +51,4 @@ management:
     binders:
       hystrix:
         enabled: true
+

@@ -3,10 +3,13 @@ package com.sinbad.demo.webdemo.service;
 
 import javax.annotation.Resource;
 
+import java.util.concurrent.TimeUnit;
+
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.sinbad.demo.pojo.DemoPojo;
@@ -19,7 +22,24 @@ public class ProviderServiceBulkheadImpl {
 	private RestTemplate restTemplate;
 
 
+	@SentinelResource(value = "ProviderServiceBulkheadImpl.getDemo")
 	public DemoPojo getDemo() {
+
+		try {
+			TimeUnit.SECONDS.sleep(10);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		return restTemplate.getForObject("http://provider-demo/provider/get", DemoPojo.class);
+	}
+	@SentinelResource(value = "ProviderServiceBulkheadImpl.getDemo2")
+	public DemoPojo getDemo2() {
+
+		try {
+			TimeUnit.SECONDS.sleep(10);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		return restTemplate.getForObject("http://provider-demo/provider/get", DemoPojo.class);
 	}
 
