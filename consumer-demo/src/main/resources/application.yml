@@ -1,0 +1,60 @@
+server:
+  port: 8200
+spring:
+  application:
+    name: consumer-demo
+  cloud:
+    sentinel:
+      transport:
+        ##Sentinel 控制台地址 上报接口
+        dashboard: 127.0.0.1:8888
+        ##客户端监控API的端口 可以动态修改配置和加载配置
+        port: 8721
+      ##取消Sentinel控制台懒加载
+      eager: true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8000/eureka
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      base-path: /server/manage
+  endpoint:
+    env:
+      post:
+        enabled: true
+    features:
+      enabled: true
+    hystrix:
+      stream:
+        enabled: true
+    pause:
+      enabled: true
+    resume:
+      enabled: true
+    restart:
+      enabled: true
+    shutdown:
+      enabled: true
+    health:
+      enabled: true
+      show-details: always
+  health:
+    db:
+      enabled: true
+    redis:
+      enabled: true
+  metrics:
+    binders:
+      hystrix:
+        enabled: true
+sentinel:
+  zookeeper:
+    remoteAddress: mycompany.zk.cn:2181
+    configPath: /config/sentinel/
+    projectName: ${spring.application.name}
+
+
