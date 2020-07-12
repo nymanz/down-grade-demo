@@ -10,7 +10,7 @@ spring:
         dashboard: 127.0.0.1:8888
         ##客户端监控API的端口 可以动态修改配置和加载配置
         port: 8721
-      ##取消Sentinel控制台懒加载
+      ## 取消Sentinel控制台懒加载
       eager: true
 eureka:
   client:
