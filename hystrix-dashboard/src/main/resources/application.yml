@@ -1,0 +1,46 @@
+server:
+  port: 8300
+spring:
+  application:
+    name: hystrix-dashboard
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8000/eureka
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      base-path: /server/manage
+  endpoint:
+    env:
+      post:
+        enabled: true
+    features:
+      enabled: true
+    hystrix:
+      stream:
+        enabled: true
+    pause:
+      enabled: true
+    resume:
+      enabled: true
+    restart:
+      enabled: true
+    shutdown:
+      enabled: true
+    health:
+      enabled: true
+      show-details: always
+  health:
+    db:
+      enabled: true
+    redis:
+      enabled: true
+  metrics:
+    binders:
+      hystrix:
+        enabled: true
+

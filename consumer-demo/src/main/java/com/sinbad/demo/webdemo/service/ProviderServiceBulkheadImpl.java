@@ -47,8 +47,9 @@ public class ProviderServiceBulkheadImpl {
 	@HystrixCommand(
 			threadPoolKey = "provider-demo",
 			threadPoolProperties = {
+//					@HystrixProperty(name = "allowMaximumSizeToDivergeFromCoreSize", value = "true"),
+//					@HystrixProperty(name = "maximumSize", value = "3"),
 					@HystrixProperty(name = "coreSize", value = "3"),
-					@HystrixProperty(name = "maximumSize", value = "10"),
 					@HystrixProperty(name = "keepAliveTimeMinutes", value = "1000"),
 					@HystrixProperty(name = "keepAliveTimeMinutes", value = "100"),
 					@HystrixProperty(name = "keepAliveTimeMinutes", value = "100"),
